@@ -15,7 +15,7 @@ public class NRP {
 	private int custoTotal;
 	private int clientesTotal;
 	
-	private Solucao solucao;
+//	private Solucao solucao;
 
 	private File entrada;
 	private Scanner file;
@@ -80,7 +80,7 @@ public class NRP {
 
 		// Clientes com seus respectivos pesos e requisitos
 		this.clientesTotal = this.file.nextInt();
-		this.solucao = new Solucao(this.clientesTotal);//Inicializa a solução
+//		this.solucao = new Solucao(this.clientesTotal);//Inicializa a solução
 		for (int i = 1; i <= this.clientesTotal; i++) {
 			int satisfacao = this.file.nextInt();
 			int reqDoCliente = this.file.nextInt();
@@ -194,9 +194,9 @@ public class NRP {
 		this.matrizAdjacente = matrizAdjacente;
 	}
 	
-	public Solucao getSolucao() {
-		return this.solucao;
-	}
+//	public Solucao getSolucao() {
+//		return this.solucao;
+//	}
 
 
 }

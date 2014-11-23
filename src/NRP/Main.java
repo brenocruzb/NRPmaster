@@ -17,6 +17,7 @@ public class Main {
 		c.add(nrp.getClientes().get(3));
 		c.add(nrp.getClientes().get(7));
 		System.out.println(nrp.getCustoDosCLientes(c));
+				
 		
 	}
 	
