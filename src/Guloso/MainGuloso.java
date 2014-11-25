@@ -14,11 +14,11 @@ public class MainGuloso {
 		Guloso gula = new Guloso(nrp, 20000);
 		
 		
-		ArrayList<Cliente> cliente = gula.gerarSolucao();
+//		ArrayList<Cliente> cliente = gula.gerarSolucao();
 		
-		for (int i = 0; i < cliente.size(); i++) {
-			System.out.println(cliente.get(i).getPeso());
-		}
+//		for (int i = 0; i < cliente.size(); i++) {
+//			System.out.println(cliente.get(i).getPeso());
+//		}
 		System.out.println(gula.getCustoTotal());
 	}
 

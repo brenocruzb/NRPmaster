@@ -50,13 +50,17 @@ public class Guloso {
 
 		int i = 0;
 		while(true){
-			solucaoAtual.add(cliente.get(i));
-			int custoAtual = this.nrp.getCustoDosCLientes(solucaoAtual); 
-			if(custoAtual < this.custoEntrada){
-				this.custoTotal = custoAtual;
-				solucaoAnterior.add(cliente.get(i));
-				i++;
-			}else{
+			if(i < cliente.size()){
+				solucaoAtual.add(cliente.get(i));
+				int custoAtual = this.nrp.getCustoDosCLientes(solucaoAtual); 
+				if(custoAtual < this.custoEntrada){
+					this.custoTotal = custoAtual;
+					solucaoAnterior.add(cliente.get(i));
+				}else{
+					solucaoAtual.remove(solucaoAtual.size()-1);
+				}
+				i++;				
+			}else{				
 				break;
 			}
 		}
