@@ -1,8 +1,7 @@
 package Guloso;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
-import NRP.Cliente;
 import NRP.NRP;
 
 public class MainGuloso {

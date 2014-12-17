@@ -8,15 +8,22 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		NRP nrp = new NRP("C:/Users/Breno Cruz/Desktop/NRP-master/nrp-tests/nrp1.txt");
+		NRP nrp = new NRP("Entrada/nrp1.txt");
 //		nrp.carregar();
-		System.out.println(nrp.getCustoDoCliente(nrp.getClientes().get(2)));
+//		System.out.println(nrp.getCustoDoCliente(nrp.getClientes().get(2)));
 		ArrayList<Cliente> c = new ArrayList<>();
+//		for (int i = 1; i <= 100; i++) {
+//			c.add(nrp.getClientes().get(i));
+//			
+//		}
 		c.add(nrp.getClientes().get(1));
-		c.add(nrp.getClientes().get(2));
-		c.add(nrp.getClientes().get(3));
+//		c.add(nrp.getClientes().get(2));
+//		c.add(nrp.getClientes().get(3));
 		c.add(nrp.getClientes().get(7));
-		System.out.println(nrp.getCustoDosCLientes(c));
+//		c.add(nrp.getClientes().get(27));
+		System.out.println(nrp.getCustoDosClientes(c));		
+		
+		System.out.println(NRP.custoTotal);
 				
 		
 	}

@@ -51,7 +51,7 @@ public class BuscaLocal {
 			}
 		}
 		
-		solucao.setCusto(this.nrp.getCustoDosCLientes(c));
+		solucao.setCusto(this.nrp.getCustoDosClientes(c));
 		solucao.setSatisfacao(this.nrp.getSatisfacaoDosClientes(c));
 	}
 	

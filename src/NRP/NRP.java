@@ -12,7 +12,7 @@ public class NRP {
 	private ArrayList<ArrayList<Integer>> matrizAdjacente;
 
 	private int numeroDeRequisitos;
-	private int custoTotal;
+	public static int custoTotal;
 	private int clientesTotal;
 	
 //	private Solucao solucao;
@@ -29,7 +29,7 @@ public class NRP {
 		this.matrizAdjacente = new ArrayList<>();
 
 		this.numeroDeRequisitos = 0;
-		this.custoTotal = 0;
+		custoTotal = 0;
 
 		this.entrada = new File(file);
 
@@ -54,7 +54,7 @@ public class NRP {
 			for (int j = 0; j < req; j++) {
 				int custo = this.file.nextInt();
 				this.requisitos.add(new Requisito(id, custo));
-				this.custoTotal += custo;
+				custoTotal += custo;
 				id++;
 			}
 		}
@@ -79,7 +79,7 @@ public class NRP {
 		}
 
 		// Clientes com seus respectivos pesos e requisitos
-		this.clientesTotal = this.file.nextInt();
+		this.clientesTotal = this.file.nextInt();		
 //		this.solucao = new Solucao(this.clientesTotal);//Inicializa a solução
 		for (int i = 1; i <= this.clientesTotal; i++) {
 			int satisfacao = this.file.nextInt();
@@ -87,7 +87,7 @@ public class NRP {
 			Cliente cliente = new Cliente(i, satisfacao);
 
 			for (int j = 0; j < reqDoCliente; j++) {
-				int requisito = this.file.nextInt();
+				int requisito = this.file.nextInt();				
 				cliente.getRequisitos().add(this.requisitos.get(requisito));
 			}
 			this.clientes.add(cliente);
@@ -124,11 +124,11 @@ public class NRP {
 		return custo;
 	}
 	
-	public int getCustoDosCLientes(ArrayList<Cliente> lista){
+	public int getCustoDosClientes(ArrayList<Cliente> lista){
 		ArrayList<Integer> listaDeRequisitos = new ArrayList<>();
 		int custoTotal = 0;
 		
-		for (int i = 1; i < lista.size(); i++) {
+		for (int i = 0; i < lista.size(); i++) {
 			Cliente c = lista.get(i);
 			
 			for (int j = 1; j < c.getRequisitos().size(); j++) {				
@@ -150,11 +150,11 @@ public class NRP {
 			}	
 
 			
-			for (int j = 0; j < listaDeRequisitos.size(); j++) {
-				custoTotal += this.requisitos.get(listaDeRequisitos.get(j)).getCusto();			
-			}
 		}
 		
+		for (int j = 0; j < listaDeRequisitos.size(); j++) {
+			custoTotal += this.requisitos.get(listaDeRequisitos.get(j)).getCusto();			
+		}
 		return custoTotal;
 	}
 	
@@ -170,10 +170,10 @@ public class NRP {
 		return this.numeroDeRequisitos;
 	}
 
-	public int getCustoTotal() {
-		return this.custoTotal;
-	}
-	
+//	public int getCustoTotal() {
+//		return this.custoTotal;
+//	}
+//	
 	public int getClientesTotal(){
 		return this.clientesTotal;
 	}

@@ -7,7 +7,7 @@ public class Solucao {
 	private int custo;
 	private int satisfacao;
 	private int numElementos;
-	
+	NRP a;
 
 	public Solucao(int n){
 		this.numElementos = n;
@@ -17,8 +17,20 @@ public class Solucao {
 	}
 	
 	private void gerarSolucao(){
-		for(int i = 0; i < this.solucao.length; i++)
-			this.solucao[i] = (Math.random() <= 0.5) ? 0 : 1; 
+		for(int i = 0; i < this.solucao.length; i++){
+			
+//			if(this.getSatisfacao() < NRP.custoTotal){
+				this.solucao[i] = (Math.random() <= 0.5) ? 0 : 1;
+//				avalia
+				
+//				if(this.getSatisfacao() > NRP.custoTotal){
+//					this.solucao[i] = 0;
+////				avalia
+//				}
+//			}else{
+//				this.solucao[i] = 0;
+//			}								
+		}
 	}
 	
 	//Gera uma nova solucao baseada na atual
