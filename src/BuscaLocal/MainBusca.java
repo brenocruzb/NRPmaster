@@ -10,11 +10,12 @@ public class MainBusca {
 	public static void main(String[] args) {
 		NRP nrp = new NRP("Entrada/nrp1.txt");
 		
-		BuscaLocal busca = new BuscaLocal(nrp, 40, 1000);
+		BuscaLocal busca = new BuscaLocal(nrp, 40, 1000, 70);
 //		busca.melhorSolucao(10, 10);		
 		busca.salvarSolucao();
 //		
-		System.out.println(NRP.custoTotal);
+		System.out.println(busca.getSolucaoAtual().getCusto());
+		System.out.println(nrp.getCustoTotal());
 //		BuscaLocal buscaComRestricao = new BuscaLocal(nrp, 21000, 40, 1000);		
 //		buscaComRestricao.salvarSolucao();
 //		busca.gerarVizinhos(10);

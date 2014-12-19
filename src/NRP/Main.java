@@ -12,18 +12,19 @@ public class Main {
 //		nrp.carregar();
 //		System.out.println(nrp.getCustoDoCliente(nrp.getClientes().get(2)));
 		ArrayList<Cliente> c = new ArrayList<>();
-//		for (int i = 1; i <= 100; i++) {
-//			c.add(nrp.getClientes().get(i));
-//			
-//		}
-		c.add(nrp.getClientes().get(1));
-//		c.add(nrp.getClientes().get(2));
-//		c.add(nrp.getClientes().get(3));
-		c.add(nrp.getClientes().get(7));
-//		c.add(nrp.getClientes().get(27));
+		
+		for (int i = 1; i <= 100; i++) {
+			c.add(nrp.getClientes().get(i));
+			
+		}
+//		c.add(nrp.getClientes().get(1));
+////		c.add(nrp.getClientes().get(2));
+////		c.add(nrp.getClientes().get(3));
+//		c.add(nrp.getClientes().get(7));
+////		c.add(nrp.getClientes().get(27));
 		System.out.println(nrp.getCustoDosClientes(c));		
 		
-		System.out.println(NRP.custoTotal);
+		System.out.println(nrp.getCustoTotal());
 				
 		
 	}

@@ -13,25 +13,16 @@ public class Solucao {
 		this.numElementos = n;
 		this.solucao = new int[n];
 		this.resultado = new int[2];
-		this.gerarSolucao();
+//		this.gerarSolucao();
 	}
 	
-	private void gerarSolucao(){
-		for(int i = 0; i < this.solucao.length; i++){
-			
-//			if(this.getSatisfacao() < NRP.custoTotal){
-				this.solucao[i] = (Math.random() <= 0.5) ? 0 : 1;
-//				avalia
-				
-//				if(this.getSatisfacao() > NRP.custoTotal){
-//					this.solucao[i] = 0;
-////				avalia
-//				}
-//			}else{
-//				this.solucao[i] = 0;
-//			}								
-		}
-	}
+	
+//	private void gerarSolucao(){
+//		for(int i = 0; i < this.solucao.length; i++)
+//			this.solucao[i] = (Math.random() <= 0.5) ? 0 : 1;
+//	}
+//	
+	
 	
 	//Gera uma nova solucao baseada na atual
 	public Solucao alterarBit(){
@@ -81,5 +72,9 @@ public class Solucao {
 	
 	public void setSolucao(int[] solucao) {
 		this.solucao = solucao;
+	}
+	
+	public int tamanho(){
+		return this.solucao.length;
 	}
 }

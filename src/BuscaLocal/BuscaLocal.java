@@ -15,35 +15,24 @@ public class BuscaLocal {
 	private Solucao solucaoAtual;
 	private int custoRestricao;
 	
-	public BuscaLocal(NRP nrp, int numVizinhos, int numIteracoes){//sem restricao
+	public BuscaLocal(NRP nrp, int numVizinhos, int numIteracoes, int restricao){
 		this.nrp = nrp;		
-		this.custoRestricao = 0;
+//		this.custoRestricao = 0;
 		this.vizinhos = new ArrayList<Solucao>();
 		this.solucaoAtual = new Solucao(nrp.getClientesTotal());
-		this.avalia(this.solucaoAtual);		
-		this.melhorSolucao(numIteracoes, numVizinhos);
-	}
-	
-	public BuscaLocal(NRP nrp, int custoTotal, int numVizinhos, int numIteracoes){//com restricao
-		this.nrp = nrp;		
-		this.custoRestricao = custoTotal;
-		this.vizinhos = new ArrayList<Solucao>();
-		this.solucaoAtual = new Solucao(nrp.getClientesTotal());
-		this.avalia(this.solucaoAtual);
-		while(this.solucaoAtual.getCusto() > custoTotal){
-			this.solucaoAtual = new Solucao(nrp.getClientesTotal());
-			this.avalia(this.solucaoAtual);
-		}
+		this.gerarSolucao(restricao);
+//		this.avalia(this.solucaoAtual);		
 		this.melhorSolucaoComRestricao(numIteracoes, numVizinhos);
 	}
 	
-	public void gerarVizinhos(int numVizinhos){
+	
+	private void gerarVizinhos(int numVizinhos){
 		for (int i = 0; i < numVizinhos; i++) {
 			this.vizinhos.add(this.solucaoAtual.alterarBit());
 		}		
 	}
 	
-	public void avalia(Solucao solucao){
+	private void avalia(Solucao solucao){
 		ArrayList<Cliente> c = new ArrayList<>();
 		for (int i = 0; i < solucao.getSolucao().length; i++) {
 			if(solucao.getSolucao()[i] == 1){
@@ -55,34 +44,7 @@ public class BuscaLocal {
 		solucao.setSatisfacao(this.nrp.getSatisfacaoDosClientes(c));
 	}
 	
-	public Solucao melhorVizinho(ArrayList<Solucao> vizinhos){
-		Solucao melhorVizinho = null;
-		this.avalia(vizinhos.get(0));
-		for (int i = 1; i < vizinhos.size(); i++) {
-			this.avalia(vizinhos.get(i));
-			if (vizinhos.get(i-1).getSatisfacao() < vizinhos.get(i).getSatisfacao()) {
-				melhorVizinho = vizinhos.get(i);
-			}
-		}
-		
-		return melhorVizinho;
-	}
-	
-	public Solucao melhorSolucao(int numIteracoes, int numVizinhos) {		
-		Solucao melhorVizinho = null;	
-		for (int i = 0; i <= numIteracoes; i++) {
-			this.gerarVizinhos(numVizinhos);
-			melhorVizinho = this.melhorVizinho(this.vizinhos);
-			if(this.solucaoAtual.getSatisfacao() < melhorVizinho.getSatisfacao()){
-				this.solucaoAtual = melhorVizinho;
-			}else{
-				break;
-			}
-		}		
-		return this.solucaoAtual;
-	}
-	
-	public Solucao melhorVizinhoComRestricao(ArrayList<Solucao> vizinhos){
+	private Solucao melhorVizinhoComRestricao(ArrayList<Solucao> vizinhos){
 		int i = 0;
 		this.avalia(vizinhos.get(0));
 		while(vizinhos.get(i).getCusto() > this.custoRestricao){
@@ -101,7 +63,7 @@ public class BuscaLocal {
 		return melhorVizinho;
 	}
 	
-	public Solucao melhorSolucaoComRestricao(int numIteracoes, int numVizinhos) {		
+	private Solucao melhorSolucaoComRestricao(int numIteracoes, int numVizinhos) {		
 		Solucao melhorViznho = null;	
 		for (int i = 0; i <= numIteracoes; i++) {
 			this.gerarVizinhos(numVizinhos);
@@ -114,6 +76,67 @@ public class BuscaLocal {
 			}
 		}		
 		return this.solucaoAtual;
+	}
+	
+	private void gerarSolucao(int restricao){		
+		double valor = (restricao/100.0) * this.nrp.getCustoTotal();
+		this.custoRestricao = (int) valor;
+		
+		int[] solu = new int[this.solucaoAtual.tamanho()];
+		
+		for(int i = 0; i < this.solucaoAtual.tamanho(); i++) solu[i] = 0;
+		this.solucaoAtual.setSolucao(solu);
+		
+		for(int i = 0; i < this.solucaoAtual.tamanho(); i++){
+			
+			if(this.solucaoAtual.getCusto() < this.custoRestricao){
+				solu[i] = (Math.random() <= 0.5) ? 0 : 1;
+//				solu[i] = 1;
+				this.solucaoAtual.setSolucao(solu);
+				this.avalia(this.solucaoAtual);
+				
+				if(this.solucaoAtual.getCusto() > this.custoRestricao){
+					solu[i] = 0;
+					this.solucaoAtual.setSolucao(solu);
+					this.avalia(this.solucaoAtual);
+				}
+			}else{
+//				solu[i] = 0;
+//				this.solucaoAtual.setSolucao(solu);
+				break;
+			}								
+		}
+		
+	}
+	
+	public void gerarSolucao2(int restricao){
+		
+		double valor = (restricao/100.0) * this.nrp.getCustoTotal();
+		this.custoRestricao = (int) valor;
+		
+		int[] solu = new int[this.solucaoAtual.tamanho()];
+		
+		for(int i = 0; i < this.solucaoAtual.tamanho(); i++) solu[i] = 0;
+		this.solucaoAtual.setSolucao(solu);
+		
+		for(int i = 0; i < this.solucaoAtual.tamanho(); i++){
+			
+			if(this.solucaoAtual.getCusto() < this.custoRestricao){
+				solu[i] = (Math.random() <= 0.5) ? 0 : 1;
+//				solu[i] = 1;
+				this.solucaoAtual.setSolucao(solu);
+				this.avalia(this.solucaoAtual);
+				
+				if(this.solucaoAtual.getCusto() > this.custoRestricao){
+					solu[i] = 0;
+					this.solucaoAtual.setSolucao(solu);
+					this.avalia(this.solucaoAtual);
+					break;
+				}
+			}else{
+				break;
+			}
+		}
 	}
 	
 	public void salvarSolucao() {
@@ -144,7 +167,7 @@ public class BuscaLocal {
 		return this.nrp;
 	}
 	
-	public int getCustoRestricao(){
+	public double getCustoRestricao(){
 		return this.custoRestricao;
 	}
 	
@@ -156,3 +179,44 @@ public class BuscaLocal {
 		return this.solucaoAtual;
 	}
 }
+
+
+//	public BuscaLocal(NRP nrp, int custoTotal, int numVizinhos, int numIteracoes){//com restricao
+//		this.nrp = nrp;		
+//		this.custoRestricao = custoTotal;
+//		this.vizinhos = new ArrayList<Solucao>();
+//		this.solucaoAtual = new Solucao(nrp.getClientesTotal());
+//		this.avalia(this.solucaoAtual);
+//		while(this.solucaoAtual.getCusto() > custoTotal){
+//			this.solucaoAtual = new Solucao(nrp.getClientesTotal());
+//			this.avalia(this.solucaoAtual);
+//		}
+//		this.melhorSolucaoComRestricao(numIteracoes, numVizinhos);
+//	}
+
+//	public Solucao melhorVizinho(ArrayList<Solucao> vizinhos){
+//		Solucao melhorVizinho = null;
+//		this.avalia(vizinhos.get(0));
+//		for (int i = 1; i < vizinhos.size(); i++) {
+//			this.avalia(vizinhos.get(i));
+//			if (vizinhos.get(i-1).getSatisfacao() < vizinhos.get(i).getSatisfacao()) {
+//				melhorVizinho = vizinhos.get(i);
+//			}
+//		}
+//		
+//		return melhorVizinho;
+//	}
+
+//	public Solucao melhorSolucao(int numIteracoes, int numVizinhos) {		
+//		Solucao melhorVizinho = null;	
+//		for (int i = 0; i <= numIteracoes; i++) {
+//			this.gerarVizinhos(numVizinhos);
+//			melhorVizinho = this.melhorVizinho(this.vizinhos);
+//			if(this.solucaoAtual.getSatisfacao() < melhorVizinho.getSatisfacao()){
+//				this.solucaoAtual = melhorVizinho;
+//			}else{
+//				break;
+//			}
+//		}		
+//		return this.solucaoAtual;
+//	}
