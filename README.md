@@ -1,4 +1,4 @@
-NRPmaster
-.	Busca Local com Restrição
+.	Busca Local com RestriÃ§Ã£o
 .	Guloso Otimizado
+NRPmaster
 =========
