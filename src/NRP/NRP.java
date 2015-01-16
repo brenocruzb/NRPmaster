@@ -12,7 +12,7 @@ public class NRP {
 	private ArrayList<ArrayList<Integer>> matrizAdjacente;
 
 	private int numeroDeRequisitos;
-	private  int custoTotal;
+	private int custoTotal;
 	private int clientesTotal;
 	
 //	private Solucao solucao;

@@ -8,9 +8,9 @@ public class MainGuloso {
 	
 	public static void main(String[] args) {
 		
-		NRP nrp = new NRP("Entrada/nrp1.txt");
+		NRP nrp = new NRP("Entrada/nrp2.txt");
 		
-		Guloso gula = new Guloso(nrp, 20000);
+		Guloso gula = new Guloso(nrp, 30);
 		
 		
 //		ArrayList<Cliente> cliente = gula.gerarSolucao();

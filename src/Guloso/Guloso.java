@@ -14,7 +14,9 @@ public class Guloso {
 	
 	public Guloso (NRP nrp, int custo){
 		this.nrp = nrp;
-		this.custoEntrada = custo;
+		//this.custoEntrada = custo;
+		double valor = (custo/100.0) * this.nrp.getCustoTotal();
+		this.custoEntrada = (int) valor;
 		this.solucao = this.gerarSolucao();
 	}
 	
@@ -44,6 +46,7 @@ public class Guloso {
 	}
 	
 	public ArrayList<Cliente> gerarSolucao(){
+				
 		ArrayList<Cliente> cliente = this.ordena();
 		ArrayList<Cliente> solucaoAtual = new ArrayList<>();
 		ArrayList<Cliente> solucaoAnterior = new ArrayList<>();

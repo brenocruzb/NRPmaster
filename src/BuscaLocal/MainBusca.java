@@ -8,7 +8,7 @@ public class MainBusca {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		NRP nrp = new NRP("Entrada/nrp1.txt");
+		NRP nrp = new NRP("Entrada/nrp2.txt");
 		
 		BuscaLocal busca = new BuscaLocal(nrp, 40, 1000, 70);
 //		busca.melhorSolucao(10, 10);		

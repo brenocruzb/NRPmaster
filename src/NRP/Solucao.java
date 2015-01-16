@@ -6,8 +6,7 @@ public class Solucao {
 	private int[] resultado;
 	private int custo;
 	private int satisfacao;
-	private int numElementos;
-	NRP a;
+	private int numElementos;	
 
 	public Solucao(int n){
 		this.numElementos = n;
