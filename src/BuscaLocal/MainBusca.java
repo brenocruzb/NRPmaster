@@ -8,14 +8,15 @@ public class MainBusca {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		NRP nrp = new NRP("Entrada/nrp2.txt");
+		NRP nrp = new NRP("Entrada/nrp3.txt");
 		
 		BuscaLocal busca = new BuscaLocal(nrp, 40, 1000, 70);
 //		busca.melhorSolucao(10, 10);		
 		busca.salvarSolucao();
 //		
-		System.out.println(busca.getSolucaoAtual().getCusto());
-		System.out.println(nrp.getCustoTotal());
+		System.out.println("Custo: "+busca.getSolucaoAtual().getCusto());
+		System.out.println("CustoTotal: "+nrp.getCustoTotal() * 0.7);
+		System.out.println("SATISFAÇÃO: "+busca.getSolucaoAtual().getSatisfacao());
 //		BuscaLocal buscaComRestricao = new BuscaLocal(nrp, 21000, 40, 1000);		
 //		buscaComRestricao.salvarSolucao();
 //		busca.gerarVizinhos(10);

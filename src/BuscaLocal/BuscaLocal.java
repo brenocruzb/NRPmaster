@@ -41,7 +41,7 @@ public class BuscaLocal {
 		}
 		
 		solucao.setCusto(this.nrp.getCustoDosClientes(c));
-		solucao.setSatisfacao(this.nrp.getSatisfacaoDosClientes(c));
+		solucao.setSatisfacao(this.nrp.getSatisfacaoDosClientes(c));			
 	}
 	
 	private Solucao melhorVizinhoComRestricao(ArrayList<Solucao> vizinhos){
@@ -79,8 +79,8 @@ public class BuscaLocal {
 	}
 	
 	private void gerarSolucao(int restricao){		
-		double valor = (restricao/100.0) * this.nrp.getCustoTotal();
-		this.custoRestricao = (int) valor;
+		
+		this.custoRestricao = (int) ((restricao/100.0) * this.nrp.getCustoTotal());
 		
 		int[] solu = new int[this.solucaoAtual.tamanho()];
 		
@@ -92,8 +92,10 @@ public class BuscaLocal {
 			if(this.solucaoAtual.getCusto() < this.custoRestricao){
 				solu[i] = (Math.random() <= 0.5) ? 0 : 1;
 //				solu[i] = 1;
-				this.solucaoAtual.setSolucao(solu);
-				this.avalia(this.solucaoAtual);
+				if(solu[i] == 1){
+					this.solucaoAtual.setSolucao(solu);
+					this.avalia(this.solucaoAtual);
+				}
 				
 				if(this.solucaoAtual.getCusto() > this.custoRestricao){
 					solu[i] = 0;

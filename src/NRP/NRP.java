@@ -136,25 +136,24 @@ public class NRP {
 					listaDeRequisitos.add(c.getRequisitos().get(j).getId());
 				}
 			}
-			
-			for (int j = 0; j < listaDeRequisitos.size(); j++) {			
-				for (int k = 0; k < this.matrizAdjacente.size(); k++) {
-					int bool = this.matrizAdjacente.get(k).get(listaDeRequisitos.get(j));
-					if(bool == 1){
-						int elementoDaMatriz = this.requisitos.get(k).getId();
-						if(!listaDeRequisitos.contains(elementoDaMatriz)){
-							listaDeRequisitos.add(elementoDaMatriz);
-						}
-					}				
-				}	
-			}	
-
-			
 		}
-		
+			
+		for (int j = 0; j < listaDeRequisitos.size(); j++) {			
+			for (int k = 0; k < this.matrizAdjacente.size(); k++) {
+				int bool = this.matrizAdjacente.get(k).get(listaDeRequisitos.get(j));
+				if(bool == 1){
+					int elementoDaMatriz = this.requisitos.get(k).getId();
+					if(!listaDeRequisitos.contains(elementoDaMatriz)){
+						listaDeRequisitos.add(elementoDaMatriz);
+					}
+				}				
+			}	
+		}	
+					
 		for (int j = 0; j < listaDeRequisitos.size(); j++) {
 			custoTotal += this.requisitos.get(listaDeRequisitos.get(j)).getCusto();			
 		}
+		
 		return custoTotal;
 	}
 	

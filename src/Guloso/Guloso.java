@@ -10,13 +10,13 @@ public class Guloso {
 	private NRP nrp;
 	private int custoEntrada;
 	private int custoTotal;
+	private int satisfacaoTotal;
 	private ArrayList<Cliente> solucao;
 	
 	public Guloso (NRP nrp, int custo){
 		this.nrp = nrp;
-		//this.custoEntrada = custo;
-		double valor = (custo/100.0) * this.nrp.getCustoTotal();
-		this.custoEntrada = (int) valor;
+		//this.custoEntrada = custo;		
+		this.custoEntrada = (int) ((custo/100.0) * this.nrp.getCustoTotal());
 		this.solucao = this.gerarSolucao();
 	}
 	
@@ -55,9 +55,11 @@ public class Guloso {
 		while(true){
 			if(i < cliente.size()){
 				solucaoAtual.add(cliente.get(i));
-				int custoAtual = this.nrp.getCustoDosClientes(solucaoAtual); 
+				int custoAtual = this.nrp.getCustoDosClientes(solucaoAtual);
+				int satisfacaoAtual = this.nrp.getSatisfacaoDosClientes(solucaoAtual);
 				if(custoAtual < this.custoEntrada){
 					this.custoTotal = custoAtual;
+					this.satisfacaoTotal = satisfacaoAtual;
 					solucaoAnterior.add(cliente.get(i));
 				}else{
 					solucaoAtual.remove(solucaoAtual.size()-1);
@@ -90,6 +92,10 @@ public class Guloso {
 	
 	public int getCustoTotal() {
 		return custoTotal;
+	}
+	
+	public int getSatisfacaoTotal(){
+		return satisfacaoTotal;
 	}
 
 

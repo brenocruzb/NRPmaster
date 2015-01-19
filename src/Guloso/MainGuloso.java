@@ -8,9 +8,10 @@ public class MainGuloso {
 	
 	public static void main(String[] args) {
 		
-		NRP nrp = new NRP("Entrada/nrp2.txt");
+		NRP nrp = new NRP("Entrada/nrp3.txt");
 		
-		Guloso gula = new Guloso(nrp, 30);
+		Guloso gula = new Guloso(nrp, 70);
+		
 		
 		
 //		ArrayList<Cliente> cliente = gula.gerarSolucao();
@@ -18,7 +19,9 @@ public class MainGuloso {
 //		for (int i = 0; i < cliente.size(); i++) {
 //			System.out.println(cliente.get(i).getPeso());
 //		}
-		System.out.println(gula.getCustoTotal());
+		System.out.println("Custo: "+gula.getCustoTotal());
+		System.out.println("Custo Total: "+nrp.getCustoTotal());
+		System.out.println("SATISFACAO: "+gula.getSatisfacaoTotal());
 	}
 
 }
