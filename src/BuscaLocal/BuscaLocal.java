@@ -54,7 +54,7 @@ public class BuscaLocal {
 		}
 		Solucao melhorVizinho = vizinhos.get(i);
 		for (int j = i + 1; j < vizinhos.size(); j++) {
-			this.avalia(vizinhos.get(i));
+			this.avalia(vizinhos.get(j));
 			if ((vizinhos.get(j-1).getSatisfacao() < vizinhos.get(j).getSatisfacao()) && 
 					(vizinhos.get(j).getCusto() < this.custoRestricao)) {
 				melhorVizinho = vizinhos.get(j);
