@@ -8,8 +8,7 @@ public class Cliente {
 	private int peso;
 	private ArrayList<Requisito> requisitos;
 	
-	
-	
+		
 	public Cliente(int id, int peso){
 		this.id = id;
 		this.peso = peso;
@@ -17,6 +16,14 @@ public class Cliente {
 		this.requisitos.add(new Requisito(0, 0));
 		
 		}
+	
+	public void Clone(Cliente c){
+		this.id = c.getId();
+		this.peso = c.getPeso();
+		this.requisitos.clear();
+		for(Requisito req: c.getRequisitos())
+			this.requisitos.add(req);						
+	}
 	
 	
 	public int getId() {

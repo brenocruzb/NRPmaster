@@ -152,7 +152,7 @@ public class NRP {
 					
 		for (int j = 0; j < listaDeRequisitos.size(); j++) {
 			custoTotal += this.requisitos.get(listaDeRequisitos.get(j)).getCusto();			
-		}
+		}		
 		
 		return custoTotal;
 	}

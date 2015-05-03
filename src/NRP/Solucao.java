@@ -41,6 +41,18 @@ public class Solucao {
 		return this.resultado;
 	}
 	
+	public void Clone(Solucao solucao){
+		for(int i = 0; i < this.solucao.length; i++)
+			this.solucao[i] = solucao.getSolucao()[i];
+		
+		this.custo = solucao.getCusto();
+		this.satisfacao = solucao.getSatisfacao();
+		this.numElementos = solucao.getNumElementos();
+		
+		this.resultado[0] = solucao.getCusto();
+		this.resultado[1] = solucao.getSatisfacao();		
+	}
+	
 	public int getCusto() {
 		return custo;
 	}
