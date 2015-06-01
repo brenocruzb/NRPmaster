@@ -106,7 +106,8 @@ public class NRP {
 		
 		for (int i = 0; i < listaDeRequisitos.size(); i++) {			
 			for (int j = 0; j < this.matrizAdjacente.size(); j++) {
-				int bool = this.matrizAdjacente.get(j).get(listaDeRequisitos.get(i));
+				//int bool = this.matrizAdjacente.get(j).get(listaDeRequisitos.get(i));
+				int bool = this.matrizAdjacente.get(listaDeRequisitos.get(i)).get(j);
 				if(bool == 1){
 					int elementoDaMatriz = this.requisitos.get(j).getId();
 					if(!listaDeRequisitos.contains(elementoDaMatriz)){
@@ -125,43 +126,68 @@ public class NRP {
 	}
 	
 	public int getCustoDosClientes(ArrayList<Cliente> lista){
-		ArrayList<Integer> listaDeRequisitos = new ArrayList<>();
+		ArrayList<Integer> listaDeRequisitos = new ArrayList<Integer>();
 		int custoTotal = 0;
 		
-		for (int i = 0; i < lista.size(); i++) {
-			Cliente c = lista.get(i);
-			
-			for (int j = 1; j < c.getRequisitos().size(); j++) {				
-				if(!listaDeRequisitos.contains(c.getRequisitos().get(j).getId())){
-					listaDeRequisitos.add(c.getRequisitos().get(j).getId());
+		for(Cliente c: lista)
+			for(Requisito req : c.getRequisitos())
+				if(!listaDeRequisitos.contains(req.getId()))
+					listaDeRequisitos.add(req.getId());					
+		
+				
+//		for (int i = 0; i < lista.size(); i++) {
+//			Cliente c = lista.get(i);
+//			
+//			for (int j = 1; j < c.getRequisitos().size(); j++) {				
+//				if(!listaDeRequisitos.contains(c.getRequisitos().get(j).getId())){
+//					listaDeRequisitos.add(c.getRequisitos().get(j).getId());
+//				}
+//			}
+//		}
+		for(int j = 0; j < listaDeRequisitos.size(); j++){
+		//for(int req: listaDeRequisitos){
+			for(int i = 0; i < this.matrizAdjacente.size(); i++){
+				int bool = this.matrizAdjacente.get(listaDeRequisitos.get(j)).get(i);
+				if(bool == 1){
+					int elementoDaMatriz = this.requisitos.get(i).getId();
+					if(!listaDeRequisitos.contains(elementoDaMatriz))
+						listaDeRequisitos.add(elementoDaMatriz);
+					
 				}
 			}
 		}
 			
-		for (int j = 0; j < listaDeRequisitos.size(); j++) {			
-			for (int k = 0; k < this.matrizAdjacente.size(); k++) {
-				int bool = this.matrizAdjacente.get(k).get(listaDeRequisitos.get(j));
-				if(bool == 1){
-					int elementoDaMatriz = this.requisitos.get(k).getId();
-					if(!listaDeRequisitos.contains(elementoDaMatriz)){
-						listaDeRequisitos.add(elementoDaMatriz);
-					}
-				}				
-			}	
-		}	
-					
-		for (int j = 0; j < listaDeRequisitos.size(); j++) {
-			custoTotal += this.requisitos.get(listaDeRequisitos.get(j)).getCusto();			
-		}		
+			
+//		for (int j = 0; j < listaDeRequisitos.size(); j++) {			
+//			for (int k = 0; k < this.matrizAdjacente.size(); k++) {
+//				int bool = this.matrizAdjacente.get(k).get(listaDeRequisitos.get(j));
+//				if(bool == 1){
+//					int elementoDaMatriz = this.requisitos.get(k).getId();
+//					if(!listaDeRequisitos.contains(elementoDaMatriz)){
+//						listaDeRequisitos.add(elementoDaMatriz);
+//					}
+//				}				
+//			}	
+//		}	
+		for(int req : listaDeRequisitos)
+			custoTotal += this.requisitos.get(req).getCusto();
+		
+//		for (int j = 0; j < listaDeRequisitos.size(); j++) {
+//			custoTotal += this.requisitos.get(listaDeRequisitos.get(j)).getCusto();			
+//		}		
 		
 		return custoTotal;
 	}
 	
 	public int getSatisfacaoDosClientes(ArrayList<Cliente> lista){
 		int satisfacaoTotal = 0;
-		for (int i = 1; i < lista.size(); i++) {
-			satisfacaoTotal += lista.get(i).getPeso();
+		for(Cliente cliente: lista){
+			satisfacaoTotal += cliente.getPeso();
 		}
+		
+//		for (int i = 1; i < lista.size(); i++) {
+//			satisfacaoTotal += lista.get(i).getPeso();
+//		}
 		return satisfacaoTotal;
 	}
 

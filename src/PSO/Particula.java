@@ -62,18 +62,14 @@ public class Particula {
 	
 	/**A lista de Clientes c, irá conter todos os clientes ativos (1) da solucao, após isso, 
 	 * a solucao irá receber o custo e a satisfacao baseada nessa lista**/
-	private void avalia(Solucao solucao){
+	public void avalia(Solucao solucao){
 		ArrayList<Cliente> c = new ArrayList<>();
-		int[] clientes = new int[solucao.tamanho()];			
-		Cliente aux = new Cliente(0,0);
-		
-		//Copiando clentes para um array temporario
-		for(int i = 0; i < clientes.length; i++)
-			clientes[i] = solucao.getSolucao()[i];
+		ArrayList<Cliente> cNaoInfluentes = new ArrayList<>();		
+		Cliente aux = new Cliente(0,0);		
 		
 		//Adicionando os clientes ativos à lista de clientes c
-		for (int i = 0; i < clientes.length; i++) 
-			if(clientes[i] == 1)
+		for (int i = 0; i < solucao.tamanho(); i++) 
+			if(solucao.getSolucao()[i] == 1)
 				c.add(nrp.getClientes().get(i));
 				
 		this.ordenarPorCusto(c);
@@ -82,19 +78,26 @@ public class Particula {
 		
 		while(solucao.getCusto() > this.dimensao){
 			int custoAnterior = nrp.getCustoDosClientes(c);			
-			aux.Clone(c.get(0));						//Segura o cliente que vai ser removido
-			c.remove(0);								//remove ele da lista de clientes ativos
+			aux.Clone(c.get(0));//Segura o cliente que vai ser removido
+			c.remove(0);		//remove ele da lista de clientes ativos
 			int custoAtual = nrp.getCustoDosClientes(c);
 			
-			if(custoAtual < custoAnterior){//Retira apenas clientes que reduzam o custo			
-				clientes[aux.getId()] = 0; //retira esse cliente da solucao temporaria atual												
-				solucao.setCusto(custoAtual);//recalcula o custo			
+			if(custoAtual < custoAnterior){//Retira apenas clientes que reduzam o custo		
+				solucao.getSolucao()[aux.getId()] = 0;//retira esse cliente da solucao temporaria atual											
+				solucao.setCusto(custoAtual);//recalcula o custo
+				if(!cNaoInfluentes.isEmpty()){
+					c.addAll(cNaoInfluentes);//Adiciona todos os clientes sem influencia devolta, para serem avaliados novamente.
+					this.ordenarPorCusto(c);
+					cNaoInfluentes.clear();//Limpa a lista de clientes sem influencia
+				}
+				
 			}else{				
-				c.add(aux);					//Coloca o cliente novamente na lista de clientes ativos
-			}		
-		}				
+				Cliente cliente = new Cliente(0,0);
+				cliente.Clone(aux);
+				cNaoInfluentes.add(cliente);//Armazena os clientes que não influencia no custo								
+			}						
+		}													
 		solucao.setSatisfacao(nrp.getSatisfacaoDosClientes(c));		
-		solucao.setSolucao(clientes);		
 	}
 			
 	public void atualizarPosicao(){

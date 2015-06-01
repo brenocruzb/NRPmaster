@@ -1,6 +1,10 @@
 package NRP;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import PSO.Particula; 
 
 public class Main {
 
@@ -9,22 +13,68 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		NRP nrp = new NRP("Entrada/nrp1.txt");
+		System.out.println(nrp.getCustoTotal());
+		System.out.println((int)((30/100.0) * nrp.getCustoTotal()));
 //		nrp.carregar();
 //		System.out.println(nrp.getCustoDoCliente(nrp.getClientes().get(2)));
 		ArrayList<Cliente> c = new ArrayList<>();
-		
-		for (int i = 1; i <= 100; i++) {
+		int max = 14;
+		for (int i = 1; i <= max; i++) {
 			c.add(nrp.getClientes().get(i));
 			
 		}
 //		c.add(nrp.getClientes().get(1));
-////		c.add(nrp.getClientes().get(2));
-////		c.add(nrp.getClientes().get(3));
-//		c.add(nrp.getClientes().get(7));
-////		c.add(nrp.getClientes().get(27));
-		System.out.println(nrp.getCustoDosClientes(c));		
+//		c.add(nrp.getClientes().get(2));
+//		c.add(nrp.getClientes().get(15));
+//		c.add(nrp.getClientes().get(17));
+//		c.add(nrp.getClientes().get(20));
 		
-		System.out.println(nrp.getCustoTotal());
+		System.out.println("Custo final: "+nrp.getCustoDosClientes(c));
+		
+		Solucao solu = new Solucao(nrp.getClientesTotal());
+		int[] lista = new int[nrp.getClientesTotal()];
+		for (int i = 1; i <= max; i++) {
+			lista[i] = 1;
+		}
+//		lista[1] = 1;
+//		lista[2] = 1;
+//		lista[15] = 1;
+//		lista[17] = 1;
+//		lista[20] = 1;			
+		
+		solu.setSolucao(lista);
+		Particula p = new Particula(nrp, (int) ((30/100.0) * nrp.getCustoTotal()));
+		p.avalia(solu);
+		System.out.println("Custo final2: "+solu.getCusto());
+		System.out.println("susto final2: "+solu.getSatisfacao());
+		/**=========================================**/
+		File entrada = new File("C:/Users/Breno Cruz/Desktop/testeEntrada.txt");
+		try {
+			Scanner file = new Scanner(entrada);
+			
+			int a = 0;
+			int[] array = new int[100];
+			while(file.hasNext()){
+				array[a++] = file.nextInt();					
+			}			
+			Solucao sol = new Solucao(nrp.getClientesTotal());
+			sol.setSolucao(array);
+			p.avalia(sol);
+			
+			System.out.println("Custo de Sol "+sol.getCusto());
+			System.out.println("Satisfação de Sol "+sol.getSatisfacao());					
+			
+			file.close();			
+				
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		//System.out.println(nrp.getClientes().get(100).getPeso());
+		
+		//System.out.println(nrp.getCustoTotal());
 				
 		
 	}
