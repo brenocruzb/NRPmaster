@@ -9,30 +9,26 @@ public class PSO {
 	private Particula[] p;		
 	protected Solucao gBest;
 
-	public PSO(NRP nrp, int numPopulacao, int dimensao){	
+	public PSO(NRP nrp, int numPopulacao){	
 		this.tamPopulacao = numPopulacao;		
 		this.p = new Particula[numPopulacao];
 		this.gBest = new Solucao(nrp.getClientesTotal());
 		
-		this.criarParticulas(nrp, dimensao);					
+		this.criarParticulas(nrp);					
 	}
 	
-	private void criarParticulas(NRP nrp, int dimensao){
+	private void criarParticulas(NRP nrp){
 		
 		for (int i = 0; i < this.p.length; i++)
-			this.p[i] = new Particula(nrp, dimensao);											
+			this.p[i] = new Particula(nrp);											
 	}
 	
-	public void avaliarParticulas(int criterioParada){
-		Particula.getgBest().Clone(this.gBest);
-				
+	public void avaliarParticulas(int criterioParada){						
 		for (int j = 0; j < criterioParada; j++)
 			for (int i = 0; i < this.p.length; i++) {
 				p[i].atualizarPosicao();				
 				p[i].atualizarLideres();			
-			}
-		
-		this.gBest.Clone(Particula.getgBest());		
+			}				
 	}	
 	
 	//Get Set

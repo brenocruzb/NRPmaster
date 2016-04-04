@@ -1,7 +1,6 @@
 package PSO;
 
 import NRP.NRP;
-import NRP.Solucao;
 
 public class MainPSO {
 
@@ -12,14 +11,13 @@ public class MainPSO {
 		
 		NRP nrp = new NRP("Entrada/nrp1.txt");
 		
-		int dimensao = (int) ((30/100.0) * nrp.getCustoTotal());
+		//int dimensao = (int) ((30/100.0) * nrp.getCustoTotal());
 		int swarm = 10;
 		int populacao = 200/swarm;
 		
-		PSO pso = new PSO(nrp, populacao, dimensao);
+		PSO pso = new PSO(nrp, populacao/*, dimensao*/);
 		pso.avaliarParticulas(20);
-		
-		System.out.println(Particula.getgBest().getSatisfacao());
+				
 		
 		//int trocarGBest = 20;
 		

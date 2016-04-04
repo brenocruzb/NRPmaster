@@ -43,8 +43,8 @@ public class Main {
 //		lista[20] = 1;			
 		
 		solu.setSolucao(lista);
-		Particula p = new Particula(nrp, (int) ((30/100.0) * nrp.getCustoTotal()));
-		p.avalia(solu);
+	//	Particula p = new Particula(nrp, (int) ((30/100.0) * nrp.getCustoTotal()));
+	//	p.avalia(solu);
 		System.out.println("Custo final2: "+solu.getCusto());
 		System.out.println("susto final2: "+solu.getSatisfacao());
 		/**=========================================**/
@@ -59,7 +59,7 @@ public class Main {
 			}			
 			Solucao sol = new Solucao(nrp.getClientesTotal());
 			sol.setSolucao(array);
-			p.avalia(sol);
+		//	p.avalia(sol);
 			
 			System.out.println("Custo de Sol "+sol.getCusto());
 			System.out.println("Satisfação de Sol "+sol.getSatisfacao());					
