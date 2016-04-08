@@ -40,6 +40,7 @@ public class Particula {
 			this.posicao.getSolucao()[i] = (Math.random() <= 0.5) ? 0 : 1;
 		
 		this.avalia(posicao);
+		Arquivador.atualizarArquivador(posicao);
 	}
 	
 	private void avalia(Solucao solucao){
@@ -131,15 +132,20 @@ public class Particula {
 			this.posicao.getSolucao()[i] = (Math.random() < s) ? 1 : 0; 																
 		}	
 		
-		//avalia(this.posicao);		
+		avalia(this.posicao);		
 	}	
 		
 	public void calcularVelocidade(){
+		Arquivador arquivador = Arquivador.getInstance();
+		ArrayList<Solucao> lista = arquivador.getArquivador();
 		double phi1 = (Math.random() * V_MAX);
 		double phi2 = (Math.random() * V_MAX);
-		for (int i = 0; i < this.velocidade.length-1; i++) {			
+		for (int i = 0; i < this.velocidade.length-1; i++) {	
+			int posRand = (int) (Math.random() * lista.size());
+			Solucao lBest = lista.get(posRand);
+			
 			double soma1 = phi1 * (pBest.getSolucao()[i] - this.posicao.getSolucao()[i]);
-			double soma2 = phi2 * (0/*getgBest().getSolucao()[i]*/ - this.posicao.getSolucao()[i]);
+			double soma2 = phi2 * (lBest.getSolucao()[i] - this.posicao.getSolucao()[i]);
 			
 			if((this.velocidade[i] + soma1 + soma2) > V_MAX) 
 				this.velocidade[i+1] = V_MAX;

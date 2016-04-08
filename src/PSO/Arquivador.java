@@ -23,33 +23,51 @@ public class Arquivador {
 	
 	public ArrayList<Solucao> getArquivador(){
 		return Arquivador.arquivador;
-	}
-	
-	public void setArquivador(ArrayList<Solucao> arquivador){
-		Arquivador.arquivador = arquivador;
-	}
+	}	
 	
 	public boolean inserirLider(Solucao solucao){
-		if(Arquivador.arquivador.size() < Arquivador.TAMANHO_MAXIMO){
-			Arquivador.arquivador.add(solucao);
-			return true;
-		}		
-		return false;		
+		if(Arquivador.arquivador.size() == 0){
+			Arquivador.arquivador.add(solucao);			
+		}else{
+			for(Solucao s : Arquivador.arquivador){
+				int domina = Arquivador.domina(solucao, s);
+				switch (domina) {
+				case 1:
+					Arquivador.arquivador.remove(s);
+					Arquivador.arquivador.add(solucao);
+					return true;
+				case -1:
+					if(Arquivador.arquivador.size() < Arquivador.TAMANHO_MAXIMO){
+						Arquivador.arquivador.add(solucao);
+						return true;
+					}		
+					return false;
+
+				default:
+					return false;
+				}
+			}			
+		}
+		return true;							
 	}
 	
-	public int getTamanhoMaximo(){
-		return Arquivador.TAMANHO_MAXIMO;
-	}
+	public int getTamanhoMaximo(){ return Arquivador.TAMANHO_MAXIMO; }
 	
-	private int domina(Solucao s1, Solucao s2){
+	/**Verifica se s1 domina s2**/
+	private static int domina(Solucao s1, Solucao s2){
 		if( s1.getCusto() <= s2.getCusto() && 
 			s1.getSatisfacao() >= s2.getSatisfacao()){
 			return 1;
 		}else if(s1.getCusto() > s2.getCusto() && 
 				 s1.getSatisfacao() < s2.getSatisfacao()){
 			return 0;
-		}
-		
+		}		
 		return -1;
+	}
+	
+	
+	public static boolean atualizarArquivador(Solucao solucao) {		
+		Arquivador arquivador = Arquivador.getInstance();		
+		return arquivador.inserirLider(solucao);				
 	}
 }
