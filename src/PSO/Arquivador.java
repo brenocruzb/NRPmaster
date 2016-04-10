@@ -37,7 +37,7 @@ public class Arquivador {
 					Arquivador.arquivador.add(solucao);
 					return true;
 				case -1:
-					if(Arquivador.arquivador.size() < Arquivador.TAMANHO_MAXIMO){
+					if(Arquivador.TAMANHO_MAXIMO == -1 || Arquivador.arquivador.size() < Arquivador.TAMANHO_MAXIMO){
 						Arquivador.arquivador.add(solucao);
 						return true;
 					}		

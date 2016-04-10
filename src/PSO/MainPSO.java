@@ -1,6 +1,9 @@
 package PSO;
 
+import java.util.ArrayList;
+
 import NRP.NRP;
+import NRP.Solucao;
 
 public class MainPSO {
 
@@ -16,8 +19,15 @@ public class MainPSO {
 		int populacao = 200/swarm;
 		
 		PSO pso = new PSO(nrp, populacao/*, dimensao*/);
-		pso.avaliarParticulas(20);
+		pso.avaliarParticulas(200);
 				
+		Arquivador arquivador = Arquivador.getInstance();
+		ArrayList<Solucao> lista = arquivador.getArquivador();
+		for(int i = 0; i < lista.size(); i++){
+			System.out.println("================Particula "+(i + 1)+"===================");			
+			System.out.println("Custo: " + lista.get(i).getCusto());
+			System.out.println("Satisfação: " + lista.get(i).getSatisfacao());			
+		}
 		
 		//int trocarGBest = 20;
 		

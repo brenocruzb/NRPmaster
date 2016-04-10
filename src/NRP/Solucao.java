@@ -12,17 +12,8 @@ public class Solucao {
 		this.numElementos = n;
 		this.solucao = new int[n];
 		this.resultado = new int[2];
-//		this.gerarSolucao();
 	}
-	
-	
-//	private void gerarSolucao(){
-//		for(int i = 0; i < this.solucao.length; i++)
-//			this.solucao[i] = (Math.random() <= 0.5) ? 0 : 1;
-//	}
-//	
-	
-	
+			
 	//Gera uma nova solucao baseada na atual
 	public Solucao alterarBit(){
 		int posicao = (int) (this.numElementos * Math.random());
