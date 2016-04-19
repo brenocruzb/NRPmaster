@@ -13,12 +13,13 @@ public class Particula {
 	
 	private double[] velocidade;	
 	private Solucao posicao;	
-	private NRP nrp;		
+	private NRP nrp;
+	private ArquivadorMultiSwarm arquivador;
 	
 	private static final double V_MIN = -4.0;
 	private static final double V_MAX = 4.0;
 	
-	public Particula(NRP nrp){
+	public Particula(NRP nrp, ArquivadorMultiSwarm arquivador){
 		//Apontadores		
 		this.nrp = nrp;
 				
@@ -26,6 +27,7 @@ public class Particula {
 		this.posicao 	= new Solucao(nrp.getClientesTotal());
 		this.pBest 		= new Solucao(nrp.getClientesTotal());		
 		this.velocidade = new double[nrp.getClientesTotal()];
+		this.arquivador = arquivador;
 		for(int i = 0; i < this.velocidade.length; i++) 
 			this.velocidade[i] = 0;
 		
@@ -40,7 +42,7 @@ public class Particula {
 			this.posicao.getSolucao()[i] = (Math.random() <= 0.5) ? 0 : 1;
 		
 		this.avalia(posicao);
-		Arquivador.atualizarArquivador(posicao);
+		this.arquivador.atualizarArquivador(posicao);
 	}
 	
 	private void avalia(Solucao solucao){
@@ -66,9 +68,8 @@ public class Particula {
 		avalia(this.posicao);		
 	}	
 		
-	public void calcularVelocidade(){
-		Arquivador arquivador = Arquivador.getInstance();
-		ArrayList<Solucao> lista = arquivador.getArquivador();
+	public void calcularVelocidade(){		
+		ArrayList<Solucao> lista = this.arquivador.getArquivadorMultiSwarm();
 		double phi1 = (Math.random() * V_MAX);
 		double phi2 = (Math.random() * V_MAX);
 		for (int i = 0; i < this.velocidade.length-1; i++) {	
@@ -93,7 +94,7 @@ public class Particula {
 		
 		if(this.posicao.getSatisfacao() > this.pBest.getSatisfacao()){
 			this.pBest.Clone(posicao);
-			Arquivador.atualizarArquivador(posicao);
+			this.arquivador.atualizarArquivador(posicao);
 		}							
 	}		
 	

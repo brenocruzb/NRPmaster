@@ -1,9 +1,6 @@
 package PSO;
 
-import java.util.ArrayList;
-
 import NRP.NRP;
-import NRP.Solucao;
 
 public class MainPSO {
 
@@ -18,44 +15,36 @@ public class MainPSO {
 		int swarm = 10;
 		int populacao = 200/swarm;
 		
-		PSO pso = new PSO(nrp, populacao/*, dimensao*/);
-		pso.avaliarParticulas(200);
-				
-		Arquivador arquivador = Arquivador.getInstance();
-		ArrayList<Solucao> lista = arquivador.getArquivador();
-		for(int i = 0; i < lista.size(); i++){
-			System.out.println("================Particula "+(i + 1)+"===================");			
-			System.out.println("Custo: " + lista.get(i).getCusto());
-			System.out.println("Satisfação: " + lista.get(i).getSatisfacao());			
+//		PSO pso = new PSO(nrp, populacao/*, dimensao*/);
+//		pso.avaliarParticulas(200);					
+		
+		int trocarGBest = 20;
+		
+		PSO[] pso = new PSO[swarm];
+		ArquivadorMultiSwarm aux = new ArquivadorMultiSwarm();
+		
+		for(int i = 0; i < swarm; i++){
+			pso[i] = new PSO(nrp, populacao);			
 		}
-		
-		//int trocarGBest = 20;
-		
-		//PSO[] pso = new PSO[swarm];
-		//Solucao aux = new Solucao(nrp.getClientesTotal());
-		
-//		for(int i = 0; i < swarm; i++){
-//			pso[i] = new PSO(nrp, populacao, dimensao);			
-//		}
 		
 //		for(int j = 0; j < pso[0].gBest.getSolucao().length; j++)
 //			System.out.print(j+ " ");
-//		
-//		for(int i = 0; i < swarm; i++){
-//			for(int j = 1; j <= 100; j++){
-//				if(j % trocarGBest == 0){
-//					
-//					pso[i].avaliarParticulas(trocarGBest);
-//					
-//					aux.Clone(pso[0].gBest);		
-//					for(int k = 0; k < pso.length - 1 ; k++){
-//						pso[k].gBest.Clone(pso[k + 1].gBest);
-//					}
-//					pso[swarm - 1].gBest.Clone(aux);
-//				}									
-//			}			
-//		} 
-//	
+		
+		for(int i = 0; i < swarm; i++){
+			for(int j = 1; j <= 100; j++){
+				if(j % trocarGBest == 0){
+					
+					pso[i].avaliarParticulas(trocarGBest);
+					
+					aux.copiarAquivador(pso[0].getArquivador());		
+					for(int k = 0; k < pso.length - 1 ; k++){
+						pso[k].getArquivador().copiarAquivador(pso[k + 1].getArquivador());
+					}
+					pso[swarm - 1].getArquivador().copiarAquivador(aux);
+				}									
+			}			
+		} 
+		
 //		for(int i = 0; i < swarm; i++){
 //			System.out.println("=================");
 //			System.out.println("GBest "+i+": ");

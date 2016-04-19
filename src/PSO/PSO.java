@@ -1,26 +1,25 @@
 package PSO;
 
 import NRP.NRP;
-import NRP.Solucao;
 
 public class PSO {
 	
 	private int tamPopulacao;
-	private Particula[] p;		
-	protected Solucao gBest;
+	private Particula[] p;			
+	private ArquivadorMultiSwarm arquivador;
 
 	public PSO(NRP nrp, int numPopulacao){	
 		this.tamPopulacao = numPopulacao;		
-		this.p = new Particula[numPopulacao];
-		this.gBest = new Solucao(nrp.getClientesTotal());
+		this.p = new Particula[numPopulacao];		
+		this.arquivador = new ArquivadorMultiSwarm();
 		
-		this.criarParticulas(nrp);					
+		this.criarParticulas(nrp, this.arquivador);					
 	}
 	
-	private void criarParticulas(NRP nrp){
+	private void criarParticulas(NRP nrp, ArquivadorMultiSwarm arquivador){
 		
 		for (int i = 0; i < this.p.length; i++)
-			this.p[i] = new Particula(nrp);											
+			this.p[i] = new Particula(nrp, arquivador);											
 	}
 	
 	public void avaliarParticulas(int criterioParada){						
@@ -48,5 +47,9 @@ public class PSO {
 	public void setP(Particula[] p) {
 		this.p = p;
 	}
+
+	public ArquivadorMultiSwarm getArquivador() {
+		return arquivador;
+	}	
 
 }
