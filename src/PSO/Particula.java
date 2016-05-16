@@ -3,13 +3,16 @@ package PSO;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.annotation.PreDestroy;
+
 import NRP.Cliente;
 import NRP.NRP;
 import NRP.Solucao;
 
 public class Particula {
 	
-	private Solucao pBest;		
+	private Solucao pBest;
+	private Solucao lBest;
 	
 	private double[] velocidade;	
 	private Solucao posicao;	
@@ -25,7 +28,8 @@ public class Particula {
 				
 		//Objetos
 		this.posicao 	= new Solucao(nrp.getClientesTotal());
-		this.pBest 		= new Solucao(nrp.getClientesTotal());		
+		this.pBest 		= new Solucao(nrp.getClientesTotal());
+		this.lBest		= new Solucao(nrp.getClientesTotal());
 		this.velocidade = new double[nrp.getClientesTotal()];
 		this.arquivador = arquivador;
 		for(int i = 0; i < this.velocidade.length; i++) 
@@ -69,12 +73,12 @@ public class Particula {
 	}	
 		
 	public void calcularVelocidade(){		
-		ArrayList<Solucao> lista = this.arquivador.getArquivadorMultiSwarm();
+		//ArrayList<Solucao> lista = this.arquivador.getArquivadorMultiSwarm();
 		double phi1 = (Math.random() * V_MAX);
 		double phi2 = (Math.random() * V_MAX);
 		for (int i = 0; i < this.velocidade.length-1; i++) {	
-			int posRand = (int) (Math.random() * lista.size());
-			Solucao lBest = lista.get(posRand);
+			//int posRand = (int) (Math.random() * lista.size());
+			//Solucao lBest = lista.get(posRand);
 			
 			double soma1 = phi1 * (pBest.getSolucao()[i] - this.posicao.getSolucao()[i]);
 			double soma2 = phi2 * (lBest.getSolucao()[i] - this.posicao.getSolucao()[i]);
@@ -92,7 +96,7 @@ public class Particula {
 	
 	public void atualizarLideres(){
 		
-		if(this.posicao.getSatisfacao() > this.pBest.getSatisfacao()){
+		if(ArquivadorMultiSwarm.domina(this.posicao, this.pBest) == 1){
 			this.pBest.Clone(posicao);
 			this.arquivador.atualizarArquivador(posicao);
 		}							
@@ -101,7 +105,8 @@ public class Particula {
 	private double sigmoid(double velocidade){
 		return 1/(1 + Math.exp(-velocidade));
 	}
-	
+		
+	@PreDestroy
 	private void ordenarPorCusto(ArrayList<Cliente> cliente){
 		ArrayList<Integer> custos = new ArrayList<Integer>();
 		for(Cliente cl : cliente)
@@ -145,5 +150,13 @@ public class Particula {
 
 	public void setVelocidade(double[] velocidade) {
 		this.velocidade = velocidade;
+	}
+	
+	public Solucao getLBest(){
+		return this.lBest;
+	}
+	
+	public void setLBest(Solucao lBest){
+		this.lBest.Clone(lBest);
 	}
 }

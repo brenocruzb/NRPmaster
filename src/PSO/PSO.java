@@ -19,7 +19,8 @@ public class PSO {
 	private void criarParticulas(NRP nrp, ArquivadorMultiSwarm arquivador){
 		
 		for (int i = 0; i < this.p.length; i++)
-			this.p[i] = new Particula(nrp, arquivador);											
+			this.p[i] = new Particula(nrp, arquivador);
+		EscolherMetodoSigma.escolherLideres(this.p, this.arquivador.getArquivadorMultiSwarm());
 	}
 	
 	public void avaliarParticulas(int criterioParada){						

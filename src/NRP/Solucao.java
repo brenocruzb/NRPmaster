@@ -6,7 +6,11 @@ public class Solucao {
 	private int[] resultado;
 	private int custo;
 	private int satisfacao;
-	private int numElementos;	
+	private int numElementos;
+	
+	private double distancia;
+	private double sigmaVector;
+	public static final double MENOR_DISTANCIA = 0;
 
 	public Solucao(int n){
 		this.numElementos = n;
@@ -78,5 +82,21 @@ public class Solucao {
 	
 	public int tamanho(){
 		return this.solucao.length;
+	}
+	
+	public double getDistancia(){
+		return this.distancia;
+	}
+	
+	public void setDistancia(double distancia){
+		this.distancia = distancia;
+	}
+
+	public double getSigmaVector() {
+		return sigmaVector;
+	}
+
+	public void setSigmaVector(double sigmaVector) {
+		this.sigmaVector = sigmaVector;
 	}
 }
