@@ -11,7 +11,7 @@ public class PSO {
 	public PSO(NRP nrp, int numPopulacao){	
 		this.tamPopulacao = numPopulacao;		
 		this.p = new Particula[numPopulacao];		
-		this.arquivador = new ArquivadorMultiSwarm();
+		this.arquivador = new ArquivadorMultiSwarm(numPopulacao/2);
 		
 		this.criarParticulas(nrp, this.arquivador);					
 	}
@@ -23,7 +23,8 @@ public class PSO {
 		EscolherMetodoSigma.escolherLideres(this.p, this.arquivador.getArquivadorMultiSwarm());
 	}
 	
-	public void avaliarParticulas(int criterioParada){						
+	public void avaliarParticulas(int criterioParada){
+		EscolherMetodoSigma.escolherLideres(this.p, this.arquivador.getArquivadorMultiSwarm());
 		for (int j = 0; j < criterioParada; j++)
 			for (int i = 0; i < this.p.length; i++) {
 				p[i].atualizarPosicao();				

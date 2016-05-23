@@ -48,8 +48,8 @@ public class EscolherMetodoSigma{
 				lBest = rep;
 			}
 		}
-		
-		particula.setLBest(lBest);
+		if(lBest != null)
+			particula.setLBest(lBest);
 	}
 
 }

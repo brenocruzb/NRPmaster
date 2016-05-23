@@ -10,7 +10,7 @@ public class Solucao {
 	
 	private double distancia;
 	private double sigmaVector;
-	public static final double MENOR_DISTANCIA = 0;
+	public static final double MENOR_DISTANCIA = 1;
 
 	public Solucao(int n){
 		this.numElementos = n;
@@ -43,6 +43,8 @@ public class Solucao {
 		this.custo = solucao.getCusto();
 		this.satisfacao = solucao.getSatisfacao();
 		this.numElementos = solucao.getNumElementos();
+		this.distancia = solucao.getDistancia();
+		this.sigmaVector = solucao.getSigmaVector();
 		
 		this.resultado[0] = solucao.getCusto();
 		this.resultado[1] = solucao.getSatisfacao();		
